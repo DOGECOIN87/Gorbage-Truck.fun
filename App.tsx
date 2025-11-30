@@ -198,7 +198,7 @@ const App: React.FC = () => {
                       <span className="block text-display-lg font-black tracking-tight leading-none bg-clip-text text-transparent bg-gradient-to-r from-lime-400 via-green-400 to-lime-400 animate-gradient bg-[length:200%_auto]" style={{
                         filter: 'drop-shadow(0 0 20px rgba(132, 204, 22, 0.8))',
                       }}>
-                        <AnimatedText text="TRUCK" />
+                        <AnimatedText text="TRUCK MINI GAME" />
                       </span>
                     </h1>
                     <p className="text-gray-400 text-label font-bold uppercase tracking-[0.3em] text-center mt-2 sm:mt-3 scroll-fade-in scroll-delay-4">Collect • Dodge • Survive</p>
