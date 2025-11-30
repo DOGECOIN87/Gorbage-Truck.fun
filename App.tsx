@@ -177,7 +177,7 @@ const App: React.FC = () => {
             {/* Intro Screen */}
             {gameState === GameState.MENU && !isSettingsOpen && (
               <div className="flex flex-col items-center w-full max-w-sm relative px-6">
-                 
+
                  {/* Settings Button */}
                  <button 
                    onClick={() => setIsSettingsOpen(true)}
@@ -189,21 +189,16 @@ const App: React.FC = () => {
                  {/* Title Section */}
                  <div className="mb-10 relative scroll-blur-in scroll-delay-2">
                     <div className="absolute -inset-8 bg-gradient-to-r from-lime-500 via-orange-500 to-lime-500 opacity-30 blur-3xl rounded-full animate-pulse"></div>
-                    <h1 className="relative text-center">
-                      <span className="block text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-none mb-1 text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.3)] animate-float" style={{
+                    <h1 className="relative text-center space-y-2">
+                      <span className="block text-[clamp(2.75rem,13vw,4.5rem)] md:text-7xl lg:text-8xl font-black tracking-tight leading-none text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.3)] animate-float" style={{
                         textShadow: '0 0 30px rgba(132, 204, 22, 0.6), 0 0 60px rgba(249, 115, 22, 0.4)',
                       }}>
                         <AnimatedText text="GORBAGE" />
                       </span>
-                      <span className="block text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter leading-none mb-[0.25rem] bg-clip-text text-transparent bg-gradient-to-r from-lime-400 via-green-400 to-lime-400 animate-gradient bg-[length:200%_auto]" style={{
+                      <span className="block text-[clamp(2.75rem,13vw,4.5rem)] md:text-7xl lg:text-8xl font-black tracking-tight leading-none bg-clip-text text-transparent bg-gradient-to-r from-lime-400 via-green-400 to-lime-400 animate-gradient bg-[length:200%_auto]" style={{
                         filter: 'drop-shadow(0 0 20px rgba(132, 204, 22, 0.8))',
                       }}>
                         <AnimatedText text="TRUCK" />
-                      </span>
-                      <span className="block text-4xl md:text-6xl lg:text-7xl font-black tracking-wide leading-none mt-2 bg-clip-text text-transparent bg-gradient-to-r from-lime-400 via-green-400 to-lime-400 animate-gradient bg-[length:200%_auto]" style={{
-                        filter: 'drop-shadow(0 0 20px rgba(132, 204, 22, 0.8))',
-                      }}>
-                        <AnimatedText text="RUSH" />
                       </span>
                     </h1>
                     <p className="text-gray-400 text-xs font-bold uppercase tracking-[0.3em] text-center mt-3 scroll-fade-in scroll-delay-4">Collect • Dodge • Survive</p>

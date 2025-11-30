@@ -1,0 +1,272 @@
+use Helius’ DAS API to grab the whole GORBAGIO collection, filter by the backgrounds trait value gorbage truck, and download the images.
+
+This script is in Python, but the logic is the same in any language.
+
+What this script does
+
+Uses one NFT mint (the one you gave: B3qkk8psvGWhxuY9aZiVRVDhjoLjVi93Ki3he1xufQ8W) to:
+
+Call getAsset → read its grouping → extract the collection address. 
+Helius
+
+Uses getAssetsByGroup with that collection address to iterate every NFT in the collection. 
+Helius
++1
+
+For each asset, checks content.metadata.attributes for:
+
+trait_type in ["background", "Background", "backgrounds", "Backgrounds"]
+
+value == "gorbage truck" (case-insensitive). (We know this trait exists from the Tensor pages. 
+Tensor
++2
+Tensor
++2
+)
+
+If it matches, it grabs the image URL from:
+
+content.links.image, or
+
+the first content.files[*].uri, or
+
+by fetching the off-chain json_uri and reading the "image" field. 
+Helius
+
+Downloads all matching images into a local folder gorbage_truck_images/.
+
+You’ll need a free Helius API key and Python 3 with requests installed. 
+Helius
++1
+
+Script: download all “gorbage truck” background NFTs
+import os
+import re
+import time
+import pathlib
+import requests
+
+# === CONFIG ===
+
+# 1. Get a free API key from https://dashboard.helius.dev
+HELIUS_API_KEY = os.getenv("HELIUS_API_KEY") or "PASTE_YOUR_HELIUS_API_KEY_HERE"
+
+# 2. Helius DAS RPC URL
+RPC_URL = f"https://mainnet.helius-rpc.com/?api-key={HELIUS_API_KEY}"
+
+# 3. Any GORBAGIO mint you know (you gave me this one)
+SAMPLE_MINT = "B3qkk8psvGWhxuY9aZiVRVDhjoLjVi93Ki3he1xufQ8W"
+
+# 4. Trait filter
+TARGET_TRAIT_VALUE = "gorbage truck"
+BACKGROUND_KEYS = {"background", "Background", "backgrounds", "Backgrounds"}
+
+# 5. Output directory
+OUT_DIR = pathlib.Path("gorbage_truck_images")
+
+
+# === HELPER FUNCTIONS ===
+
+def helius_rpc(method: str, params: dict):
+    """Call a Helius DAS RPC method and return the `result` field."""
+    payload = {
+        "jsonrpc": "2.0",
+        "id": "1",
+        "method": method,
+        "params": params,
+    }
+    resp = requests.post(RPC_URL, json=payload, timeout=30)
+    resp.raise_for_status()
+    data = resp.json()
+    if "error" in data:
+        raise RuntimeError(f"Helius RPC error: {data['error']}")
+    return data["result"]
+
+
+def get_collection_for_mint(mint: str) -> str:
+    """Use getAsset to find the on-chain collection ID for a given mint."""
+    result = helius_rpc("getAsset", {"id": mint})
+    grouping = result.get("grouping", [])
+    for g in grouping:
+        if g.get("group_key") == "collection":
+            return g.get("group_value")
+    raise RuntimeError("No collection grouping found for this mint.")
+
+
+def iter_collection_assets(collection_id: str, page_size: int = 1000):
+    """
+    Iterate all assets in a collection using getAssetsByGroup with pagination.
+    """
+    page = 1
+    while True:
+        result = helius_rpc(
+            "getAssetsByGroup",
+            {
+                "groupKey": "collection",
+                "groupValue": collection_id,
+                "page": page,
+                "limit": page_size,
+            },
+        )
+
+        items = result.get("items", [])
+        if not items:
+            break
+
+        for asset in items:
+            yield asset
+
+        total = result.get("total", 0)
+        if page * page_size >= total:
+            break
+
+        page += 1
+
+
+def has_gorbage_background(asset: dict) -> bool:
+    """Check if the asset has a background trait equal to 'gorbage truck'."""
+    metadata = asset.get("content", {}).get("metadata") or {}
+    attrs = metadata.get("attributes") or []
+
+    for attr in attrs:
+        trait_type = attr.get("trait_type")
+        value = attr.get("value")
+
+        if (
+            isinstance(trait_type, str)
+            and trait_type in BACKGROUND_KEYS
+            and isinstance(value, str)
+            and value.lower() == TARGET_TRAIT_VALUE.lower()
+        ):
+            return True
+
+    return False
+
+
+def get_image_url(asset: dict) -> str | None:
+    """Try to get an image URL from links, files, or the off-chain JSON."""
+    content = asset.get("content", {}) or {}
+
+    # 1. content.links.image
+    links = content.get("links") or {}
+    if isinstance(links, dict):
+        img = links.get("image")
+        if isinstance(img, str) and img.startswith("http"):
+            return img
+
+    # 2. content.files[*].uri
+    files = content.get("files") or []
+    for f in files:
+        uri = f.get("uri")
+        if isinstance(uri, str) and uri.startswith("http"):
+            return uri
+
+    # 3. Fallback: fetch json_uri and read "image"
+    json_uri = content.get("json_uri")
+    if isinstance(json_uri, str) and json_uri.startswith("http"):
+        try:
+            r = requests.get(json_uri, timeout=20)
+            r.raise_for_status()
+            meta = r.json()
+            image = meta.get("image")
+            if isinstance(image, str):
+                return image
+        except Exception as e:
+            print(f"Failed to fetch metadata from {json_uri}: {e}")
+
+    return None
+
+
+def filename_from_asset(asset: dict, img_url: str) -> str:
+    """
+    Build a nice filename like gorbagio_3138.png using the NFT name or mint.
+    """
+    metadata = asset.get("content", {}).get("metadata") or {}
+    name = metadata.get("name") or asset.get("id", "unknown")
+
+    # Try to grab '#1234' from the name
+    m = re.search(r"#(\d+)", str(name))
+    if m:
+        num = m.group(1)
+        prefix = "gorbagio"
+        base = f"{prefix}_{num}"
+    else:
+        base = re.sub(r"\W+", "_", str(name)).strip("_") or "nft"
+
+    suffix = pathlib.Path(img_url.split("?", 1)[0]).suffix or ".png"
+    return f"{base}{suffix}"
+
+
+def download_image(url: str, out_path: pathlib.Path):
+    """Download image from URL to out_path."""
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    r = requests.get(url, stream=True, timeout=60)
+    r.raise_for_status()
+    with open(out_path, "wb") as f:
+        for chunk in r.iter_content(8192):
+            if chunk:
+                f.write(chunk)
+
+
+# === MAIN ===
+
+def main():
+    if "PASTE_YOUR_HELIUS_API_KEY_HERE" in HELIUS_API_KEY:
+        raise SystemExit("Set HELIUS_API_KEY env var or edit the script with your API key first.")
+
+    print(f"Using Helius RPC: {RPC_URL}")
+    print(f"Finding collection for mint: {SAMPLE_MINT}")
+
+    collection_id = get_collection_for_mint(SAMPLE_MINT)
+    print(f"Collection ID: {collection_id}")
+
+    OUT_DIR.mkdir(exist_ok=True)
+    downloaded = 0
+
+    for asset in iter_collection_assets(collection_id):
+        mint = asset.get("id")
+        if not has_gorbage_background(asset):
+            continue
+
+        img_url = get_image_url(asset)
+        if not img_url:
+            print(f"[skip] No image URL for asset {mint}")
+            continue
+
+        filename = filename_from_asset(asset, img_url)
+        out_path = OUT_DIR / filename
+
+        print(f"[download] {mint} -> {out_path}")
+        try:
+            download_image(img_url, out_path)
+            downloaded += 1
+        except Exception as e:
+            print(f"[error] Failed to download {mint} from {img_url}: {e}")
+
+        # Be gentle to APIs
+        time.sleep(0.2)
+
+    print(f"Done. Downloaded {downloaded} images into: {OUT_DIR.resolve()}")
+
+
+if __name__ == "__main__":
+    main()
+
+How to run it
+
+Install Python deps
+
+pip install requests
+
+
+Save the script as gorbage_truck_downloader.py.
+
+Set your Helius key (or hard-code it in the script):
+
+export HELIUS_API_KEY=your_real_key_here
+python gorbage_truck_downloader.py
+
+
+It will create a folder called gorbage_truck_images/ and drop every NFT image whose background trait is gorbage truck into it.
+
+If you’d rather force it to use your Pinata gateway URL pattern (plum-far-bobcat-940.mypinata.cloud/.../XXXX.png?img-width=WWWW), I can tweak get_image_url to construct that directly from the token number instead of using the metadata URLs.
