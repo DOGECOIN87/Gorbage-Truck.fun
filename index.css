@@ -1,0 +1,392 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap');
+
+/* ===== SCROLL-TRIGGERED ANIMATIONS ===== */
+/* Base states for scroll animations - using visibility instead of opacity 0 */
+.scroll-fade-in {
+  animation: fadeIn 0.8s ease-out;
+  animation-fill-mode: both;
+}
+
+.scroll-slide-in {
+  animation: slideIn 0.8s ease-out;
+  animation-fill-mode: both;
+}
+
+.scroll-blur-in {
+  animation: blurIn 1s ease-out;
+  animation-fill-mode: both;
+}
+
+/* Stagger delays for element-by-element animation */
+.scroll-delay-1 { animation-delay: 0.1s; }
+.scroll-delay-2 { animation-delay: 0.2s; }
+.scroll-delay-3 { animation-delay: 0.3s; }
+.scroll-delay-4 { animation-delay: 0.4s; }
+.scroll-delay-5 { animation-delay: 0.5s; }
+.scroll-delay-6 { animation-delay: 0.6s; }
+.scroll-delay-7 { animation-delay: 0.7s; }
+.scroll-delay-8 { animation-delay: 0.8s; }
+
+@keyframes fadeIn {
+  from {
+    transform: translateY(30px);
+    filter: blur(5px);
+  }
+  to {
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-50px);
+    filter: blur(3px);
+  }
+  to {
+    transform: translateX(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes blurIn {
+  from {
+    filter: blur(10px);
+    transform: scale(0.95);
+  }
+  to {
+    filter: blur(0);
+    transform: scale(1);
+  }
+}
+
+/* ===== BACKGROUND CLIP ANIMATION (COLUMN BY COLUMN) ===== */
+.bg-clip-reveal {
+  animation: clipReveal 2s ease-out;
+  animation-fill-mode: both;
+}
+
+@keyframes clipReveal {
+  0% {
+    clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+  }
+  20% {
+    clip-path: polygon(0 0, 20% 0, 20% 100%, 0 100%);
+  }
+  40% {
+    clip-path: polygon(0 0, 40% 0, 40% 100%, 0 100%);
+  }
+  60% {
+    clip-path: polygon(0 0, 60% 0, 60% 100%, 0 100%);
+  }
+  80% {
+    clip-path: polygon(0 0, 80% 0, 80% 100%, 0 100%);
+  }
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+/* Different speeds for variety */
+.bg-clip-reveal-slow {
+  animation: clipReveal 3s ease-out;
+  animation-fill-mode: both;
+}
+
+.bg-clip-reveal-fast {
+  animation: clipReveal 1.5s ease-out;
+  animation-fill-mode: both;
+}
+
+/* ===== BORDER BEAM ANIMATION ===== */
+.btn-beam {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.btn-beam::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg 270deg,
+    #14F195 270deg 280deg,
+    #00D9FF 280deg 290deg,
+    #14F195 290deg 300deg,
+    transparent 300deg 360deg
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: -1;
+}
+
+.btn-beam:hover::before {
+  opacity: 1;
+  animation: rotateBeam 2s linear infinite;
+}
+
+@keyframes rotateBeam {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Pill-shaped button base */
+.pill-button {
+  border-radius: 9999px;
+  position: relative;
+}
+
+/* ===== VERTICAL TEXT CLIP SLIDE ANIMATION (LETTER BY LETTER) ===== */
+.text-clip-slide {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+}
+
+.text-clip-slide .letter {
+  display: inline-block;
+  animation: letterSlide 0.6s ease-out;
+  animation-fill-mode: both;
+}
+
+/* Stagger each letter */
+.text-clip-slide .letter:nth-child(1) { animation-delay: 0s; }
+.text-clip-slide .letter:nth-child(2) { animation-delay: 0.05s; }
+.text-clip-slide .letter:nth-child(3) { animation-delay: 0.1s; }
+.text-clip-slide .letter:nth-child(4) { animation-delay: 0.15s; }
+.text-clip-slide .letter:nth-child(5) { animation-delay: 0.2s; }
+.text-clip-slide .letter:nth-child(6) { animation-delay: 0.25s; }
+.text-clip-slide .letter:nth-child(7) { animation-delay: 0.3s; }
+.text-clip-slide .letter:nth-child(8) { animation-delay: 0.35s; }
+.text-clip-slide .letter:nth-child(9) { animation-delay: 0.4s; }
+.text-clip-slide .letter:nth-child(10) { animation-delay: 0.45s; }
+.text-clip-slide .letter:nth-child(11) { animation-delay: 0.5s; }
+.text-clip-slide .letter:nth-child(12) { animation-delay: 0.55s; }
+.text-clip-slide .letter:nth-child(13) { animation-delay: 0.6s; }
+.text-clip-slide .letter:nth-child(14) { animation-delay: 0.65s; }
+.text-clip-slide .letter:nth-child(15) { animation-delay: 0.7s; }
+.text-clip-slide .letter:nth-child(16) { animation-delay: 0.75s; }
+.text-clip-slide .letter:nth-child(17) { animation-delay: 0.8s; }
+.text-clip-slide .letter:nth-child(18) { animation-delay: 0.85s; }
+.text-clip-slide .letter:nth-child(19) { animation-delay: 0.9s; }
+.text-clip-slide .letter:nth-child(20) { animation-delay: 0.95s; }
+
+@keyframes letterSlide {
+  0% {
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    transform: translateY(-100%);
+  }
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    transform: translateY(0);
+  }
+}
+
+/* ===== MARQUEE LOGO ANIMATION WITH ALPHA MASK ===== */
+.marquee-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.marquee-content {
+  display: flex;
+  animation: marqueeScroll 30s linear infinite;
+  will-change: transform;
+}
+
+.marquee-content:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marqueeScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Alpha mask fade on edges */
+.marquee-mask {
+  position: relative;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 10%,
+    black 90%,
+    transparent 100%
+  );
+}
+
+/* Logo item styling */
+.marquee-item {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2rem;
+  transition: transform 0.3s ease;
+}
+
+.marquee-item:hover {
+  transform: scale(1.1);
+}
+
+/* Speed variants */
+.marquee-slow .marquee-content {
+  animation-duration: 40s;
+}
+
+.marquee-fast .marquee-content {
+  animation-duration: 20s;
+}
+
+/* ===== FLASHLIGHT EFFECT ===== */
+.flashlight-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.flashlight-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(20, 241, 149, 0.15),
+    transparent 40%
+  );
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.flashlight-card:hover::before {
+  opacity: 1;
+}
+
+.flashlight-card::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: radial-gradient(
+    400px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(20, 241, 149, 0.6),
+    transparent 40%
+  );
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  z-index: 0;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  padding: 1px;
+}
+
+.flashlight-card:hover::after {
+  opacity: 1;
+}
+
+/* Ensure children are above the effect */
+.flashlight-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* ===== UTILITY ANIMATIONS ===== */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-gradient {
+  animation: gradient 3s ease infinite;
+}
+
+/* ===== INTERSECTION OBSERVER HOOKS ===== */
+/* These classes get added when elements enter viewport */
+.fade-in-view {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-in-view.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slide-in-view {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.slide-in-view.in-view {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ===== CUSTOM SCROLLBAR ===== */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #14F195;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00D9FF;
+}
+
+/* ===== GLOBAL STYLES ===== */
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: #000000;
+  touch-action: none;
+  font-family: 'Montserrat', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
