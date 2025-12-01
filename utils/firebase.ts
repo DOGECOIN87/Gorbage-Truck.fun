@@ -1,4 +1,4 @@
-up
+
 import { initializeApp } from "firebase/app";
 import { getAuth, TwitterAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
