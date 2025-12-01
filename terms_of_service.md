@@ -2,7 +2,7 @@
 
 **Last Updated:** December 1, 2025
 
-Please read these Terms of Service ("Terms," "Terms of Service") carefully before using the game **[Game Name]** (the "Game") operated by [Developer Name] ("us," "we," or "our").
+Please read these Terms of Service ("Terms," "Terms of Service") carefully before using the game **Gorbage-Truck** (the "Game") operated by Mattrick ("us," "we," or "our").
 
 Your access to and use of the Game is conditioned on your acceptance of and compliance with these Terms. These Terms apply to all visitors, users, and others who access or use the Game.
 
@@ -12,7 +12,7 @@ By accessing or using the Game, you agree to be bound by these Terms. If you dis
 
 ## 2. Intellectual Property
 
-The Game and its original content (excluding content provided by users), features, and functionality are and will remain the exclusive property of [Developer Name] and its licensors. The Game is protected by copyright, trademark, and other laws of both the [Your Jurisdiction] and foreign countries. Our trademarks and trade dress may not be used in connection with any product or service without the prior written consent of [Developer Name].
+The Game and its original content (excluding content provided by users), features, and functionality are and will remain the exclusive property of Mattrick and its licensors. The Game is protected by copyright, trademark, and other laws of both the [Your Jurisdiction] and foreign countries. Our trademarks and trade dress may not be used in connection with any product or service without the prior written consent of Mattrick.
 
 ## 3. User Conduct
 
@@ -44,7 +44,7 @@ We reserve the right, at our sole discretion, to modify or replace these Terms a
 
 ## 8. Contact Us
 
-If you have any questions about these Terms, please contact us at: [Developer Contact Email or X.com Profile Link]
+If you have any questions about these Terms, please contact us at: Contact @Yahtrah on Telegram
 
 ---
 

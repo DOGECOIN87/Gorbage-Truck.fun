@@ -1,12 +1,12 @@
-# Privacy Policy for [Game Name]
+# Privacy Policy for Gorbage-Truck
 
 **Last Updated:** December 1, 2025
 
-This Privacy Policy describes how [Developer Name] ("we," "us," or "our") handles information for users of the game **[Game Name]** (the "Game").
+This Privacy Policy describes how Mattrick ("we," "us," or "our") handles information for users of the game **Gorbage-Truck** (the "Game").
 
 ## 1. Information We Do Not Collect
 
-We are committed to protecting your privacy. **[Game Name] does not collect, store, use, or share any personal information or data from its users.**
+We are committed to protecting your privacy. **Gorbage-Truck does not collect, store, use, or share any personal information or data from its users.**
 
 This includes, but is not limited to:
 *   **Personal Identifiable Information (PII):** Such as your name, address, email address, or phone number.
@@ -30,7 +30,7 @@ We may update our Privacy Policy from time to time. We will notify you of any ch
 ## 5. Contact Us
 
 If you have any questions about this Privacy Policy, please contact us at:
-[Developer Contact Email or X.com Profile Link]
+Contact @Yahtrah on Telegram
 
 ---
-*Note: Please replace the bracketed placeholders (e.g., `[Game Name]`, `[Developer Name]`, `[Developer Contact Email or X.com Profile Link]`) with your actual information before use.*
+*Note: Please replace the bracketed placeholders (e.g., `Gorbage-Truck`, `Mattrick`, `Contact @Yahtrah on Telegram`) with your actual information before use.*
