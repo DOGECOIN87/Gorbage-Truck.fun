@@ -23,8 +23,30 @@ const AnimatedText: React.FC<{ text: string; className?: string }> = ({ text, cl
 
 // Marquee component for logos
 const LogoMarquee: React.FC = () => {
-  // Images were missing from the repository, removing the marquee to prevent broken UI
-  return null;
+  // Placeholder image list - replace with actual assets if needed
+  const images = [
+    'assets/Gorboyconsole.png',
+    'assets/Logo-gor-incinerator.jpg',
+    'assets/UFO.png',
+    'assets/trashcoinlogo.png',
+    'assets/gorbagana.jpg',
+    'assets/wallet.png',
+  ];
+
+  return (
+    <div className="w-full overflow-hidden whitespace-nowrap py-2 bg-black/50 border-t border-b border-white/10">
+      <div className="inline-block animate-marquee">
+        {images.map((src, index) => (
+          <img 
+            key={index} 
+            src={src} 
+            alt="Game Asset" 
+            className="inline-block h-10 mx-4 object-contain"
+          />
+        ))}
+      </div>
+    </div>
+  );
 };
 
 const App: React.FC = () => {
@@ -241,7 +263,7 @@ const App: React.FC = () => {
                  </div>
 
                  <div className="absolute bottom-0 left-0 right-0 w-full scroll-fade-in scroll-delay-7 overflow-hidden">
-                   {/* <LogoMarquee /> - Removed as images were missing from the repository */ }
+                   <LogoMarquee />
                  </div>
               </div>
             )}
