@@ -48,42 +48,42 @@ const loadImage = (src: string, removeBlackBg: boolean = false): Promise<HTMLIma
 
 export const loadGameAssets = async (): Promise<GameAssets> => {
   // Base
-  const truck = awaitloadImage("./game-assets/gorbage-truck-2.png"', true); 
+  const truck = await loadImage('./game-assets/gorbage-truck-2.png', true); 
   // Use available assets in /public/assets to avoid 404s
-  const ground = await lloadImage("./assets/trashbag.png");
-  const trashCan = await loadImage("./assets/binlogo.png"); // Fallback
+  const ground = await loadImage('./assets/trashbag.jpg');
+  const trashCan = await loadImage('./assets/binlogo.png'); // Fallback
 
   // Misc
-  const introBg = await loadImage('/assets/intro_bg_new.png');
-  const introBgNew = await loadImage("./assets/intro_bg_new.png");
-  const ufo = await loadImage("./assets/ufo.png");
-  const gorbhouseCry = awaitloadImage("./game-assets/gorbhouse-cry.png"', true); // New asset for game over screen
+  const introBg = await loadImage('./assets/intro_bg_new.png');
+  const introBgNew = await loadImage('./assets/intro_bg_new.png');
+  const ufo = await loadImage('./assets/ufo.png');
+  const gorbhouseCry = await loadImage('./game-assets/gorbhouse-cry.png', true); // New asset for game over screen
 
   // Powerups
   // Try to load new asset first, fall back to old one if it fails
-  const incinerator = awaitloadImage("./game-assets/Logo-gor-incinerator.jpg"', true) || 
-                     await loadImage("./assets/incinerator.jpg", true);
-  const gorboyConsole = awaitloadImage("./game-assets/Gorboyconsole.png"', true) || 
-                       awaitloadImage("./assets/gorboyconsole.png"', true);
-  const gorbillions = awaitloadImage("./assets/gorbillions.png"', true);
+  const incinerator = await loadImage('./game-assets/Logo-gor-incinerator.jpg', true) || 
+                     await loadImage('./assets/incinerator.jpg', true);
+  const gorboyConsole = await loadImage('./game-assets/Gorboyconsole.png', true) || 
+                       await loadImage('./assets/gorboyconsole.png', true);
+  const gorbillions = await loadImage('./assets/gorbillions.png', true);
   
   // Obstacles
-  const newObstacle = awaitloadImage("./game-assets/4.webp"', true);
+  const newObstacle = await loadImage('./game-assets/4.webp', true);
   
   // Stickers/Collectibles (new assets)
-  const stickerpill = awaitloadImage("./game-assets/stickerpill.webp"', true);
-  const sticker3 = awaitloadImage("./game-assets/sticker3.webp"', true);
+  const stickerpill = await loadImage('./game-assets/stickerpill.webp', true);
+  const sticker3 = await loadImage('./game-assets/sticker3.webp', true);
   
   // Decorations (trashbag for side decoration)
-  const trashBagDecor = await loadImage('/assets/trashbag.png', true);
+  const trashBagDecor = await loadImage('./assets/trashbag.png', true);
 
   // Points
   // Try to load new asset first, fall back to old one if it fails
-  const trashCoin = awaitloadImage("./game-assets/trashcoinlogo.png"', true) || 
-                   await loadImage("./assets/trashcoin.png", true);
-  const gorbagana = awaitloadImage("./assets/gorbagana.jpg"', true);
-  const wallet = await loadImage("./game-assets/gorbagwallet-removebg-preview.png", true) || 
-                awaitloadImage("./assets/wallet.png"', true);
+  const trashCoin = await loadImage('./game-assets/trashcoinlogo.png', true) || 
+                   await loadImage('./assets/trashcoin.png', true);
+  const gorbagana = await loadImage('./assets/gorbagana.jpg', true);
+  const wallet = await loadImage('./game-assets/gorbagwallet-removebg-preview.png', true) || 
+                await loadImage('./assets/wallet.png', true);
 
   return {
     truck,
