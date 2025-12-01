@@ -69,11 +69,11 @@ const AuthButton: React.FC<AuthButtonProps> = ({ user, onAuthStateChange }) => {
   }
 
   return (
-    <div className="flex flex-col items-center gap-3 w-full max-w-sm">
+    <div className="flex flex-col items-center gap-3 w-full max-w-[300px]">
       <button
         onClick={handleSignIn}
         disabled={loading}
-        className="w-full min-h-touch py-4 bg-gradient-to-r from-blue-500 via-cyan-500 to-blue-500 text-white text-lg font-black rounded-xl shadow-[0_0_40px_rgba(59,130,246,0.5)] hover:shadow-[0_0_70px_rgba(59,130,246,0.7)] transition-all transform hover:scale-105 active:scale-95 flex items-center justify-center gap-3 uppercase tracking-wider relative overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full min-h-touch py-4 sm:py-5 bg-gradient-to-r from-blue-500 via-cyan-500 to-blue-500 text-white text-lg sm:text-xl font-black rounded-2xl shadow-[0_0_40px_rgba(59,130,246,0.5)] hover:shadow-[0_0_70px_rgba(59,130,246,0.7)] transition-all transform hover:scale-105 active:scale-95 flex items-center justify-center gap-3 uppercase tracking-wider relative overflow-hidden group disabled:opacity-50 disabled:cursor-not-allowed"
       >
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
         <LogIn className="w-5 h-5 relative z-10" />

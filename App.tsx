@@ -98,10 +98,9 @@ const App: React.FC = () => {
   };
 
   const handleStart = () => {
+    // No sign-in required to play
     if (!user) {
-      // Show a message or prompt the user to sign in
-      alert('Please sign in with X to save your scores!');
-      return;
+      console.log('Playing without signing in - scores will be saved locally');
     }
     setGameState(GameState.PLAYING);
     setScore(0);
@@ -220,7 +219,7 @@ const App: React.FC = () => {
                    </div>
                  </div>
 
-                 <div className="absolute bottom-48 sm:bottom-52 left-0 right-0 w-full flex flex-col items-center px-6 scroll-fade-in scroll-delay-4">
+                 <div className="absolute bottom-56 sm:bottom-60 left-0 right-0 w-full flex flex-col items-center px-6 scroll-fade-in scroll-delay-4">
                    {loading ? (
                      <div className="text-gray-400 text-sm font-semibold">Loading...</div>
                    ) : (
@@ -228,11 +227,10 @@ const App: React.FC = () => {
                    )}
                  </div>
 
-                 <div className="absolute bottom-32 sm:bottom-36 left-0 right-0 w-full flex flex-col items-center space-y-4 px-6 scroll-fade-in scroll-delay-5">
-                   <button 
+                 <div className="absolute bottom-24 sm:bottom-28 left-0 right-0 w-full flex flex-col items-center space-y-4 px-6 scroll-fade-in scroll-delay-5">
+                    <button 
                       onClick={handleStart}
-                      disabled={!user}
-                      className="w-full max-w-[300px] min-h-touch py-4 sm:py-5 bg-gradient-to-r from-lime-500 via-green-500 to-lime-500 text-black text-lg sm:text-xl md:text-2xl font-black rounded-2xl shadow-[0_0_60px_rgba(132,204,22,0.6)] hover:shadow-[0_0_90px_rgba(132,204,22,0.8)] transition-all transform hover:scale-105 active:scale-95 flex items-center justify-center gap-3 uppercase tracking-wider relative overflow-hidden group pill-button btn-beam disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="w-full max-w-[300px] min-h-touch py-4 sm:py-5 bg-gradient-to-r from-lime-500 via-green-500 to-lime-500 text-black text-lg sm:text-xl md:text-2xl font-black rounded-2xl shadow-[0_0_60px_rgba(132,204,22,0.6)] hover:shadow-[0_0_90px_rgba(132,204,22,0.8)] transition-all transform hover:scale-105 active:scale-95 flex items-center justify-center gap-3 uppercase tracking-wider relative overflow-hidden group pill-button btn-beam"
                     >
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/25 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
                       <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 sm:w-7 sm:h-7 relative z-10" viewBox="0 0 24 24" fill="currentColor" stroke="none">
@@ -240,17 +238,9 @@ const App: React.FC = () => {
                       </svg>
                       <span className="relative z-10">Play Now</span>
                     </button>
-                    {!user && (
-                      <button 
-                        onClick={handleSignIn}
-                        className="w-full max-w-[300px] py-3 bg-sky-500 text-white text-lg font-bold rounded-2xl shadow-lg hover:shadow-xl transition-all transform hover:scale-105 active:scale-95"
-                      >
-                        Sign in with Twitter
-                      </button>
-                    )}
 
                     <p className="text-gray-400 text-base sm:text-lg md:text-xl font-semibold text-center max-w-sm leading-relaxed px-4">
-                      {user ? 'Drive the gorbage truck & collect trash!' : 'Sign in with X to play and save your scores!'}
+                      {user ? 'Drive the gorbage truck & collect trash!' : 'Sign in with X to save your scores online! (optional)'}
                     </p>
                  </div>
 
