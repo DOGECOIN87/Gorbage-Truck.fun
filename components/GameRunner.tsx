@@ -661,7 +661,7 @@ const GameRunner: React.FC<GameRunnerProps> = ({
           setMultiplier(1);
           playSound('hit');
           shakeRef.current = 20;
-          createParticles(ParticleType.DEBRIS, e.x, e.y, e.z, PARTICLE_COUNT_COLLISION, '#888888');
+          // createParticles(ParticleType.DEBRIS, e.x, e.y, e.z, PARTICLE_COUNT_COLLISION, '#888888');
 
           if (livesRef.current <= 0) {
             playSound('gameover');
