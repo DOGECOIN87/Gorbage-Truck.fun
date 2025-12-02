@@ -1329,9 +1329,11 @@ const GameRunner: React.FC<GameRunnerProps> = ({
       }
     } else if (e.type === EntityType.OBSTACLE) {
       if (e.subtype === 'TRASH_BAG') {
-        img = assets.trashBagDecor;
+        // Use newObstacle for the main obstacle, fallback to trashBagDecor
+        img = assets.newObstacle || assets.trashBagDecor;
         color = '#444444'; // Dark gray for trash bag
       } else {
+        // Fallback for other obstacle subtypes (if any)
         img = assets.newObstacle || assets.trashBagDecor;
         color = '#222222';
       }
